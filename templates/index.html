@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Interruptor Inteligente</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+
+    <header>
+        <h1>💡 Interruptor Inteligente</h1>
+        <p>Sistema de control de iluminación sin contacto</p>
+    </header>
+
+    <main>
+
+        <section class="card">
+
+            <h2>Estado de la iluminación</h2>
+
+            <p class="estado">
+                {{ estado_luz }}
+            </p>
+
+        </section>
+
+        <section class="card">
+
+            <h2>Simulación de gestos</h2>
+
+            <form method="POST" action="{{ url_for('web.inicio') }}">
+
+                <label for="gesto">Seleccionar gesto:</label>
+
+                <select name="gesto" id="gesto">
+
+                    <option value="SWIPE_RIGHT">
+                        Deslizar a la derecha - Encender
+                    </option>
+
+                    <option value="SWIPE_LEFT">
+                        Deslizar a la izquierda - Apagar
+                    </option>
+
+                    <option value="UNKNOWN">
+                        Gesto desconocido
+                    </option>
+
+                </select>
+
+                <label for="confianza">
+                    Confianza de detección:
+                </label>
+
+                <input
+                    type="number"
+                    name="confianza"
+                    id="confianza"
+                    min="0"
+                    max="1"
+                    step="0.05"
+                    value="0.95"
+                    required
+                >
+
+                <label for="distancia">
+                    Distancia simulada:
+                </label>
+
+                <input
+                    type="number"
+                    name="distancia"
+                    id="distancia"
+                    min="0"
+                    max="100"
+                    value="15"
+                    required
+                >
+
+                <label class="check">
+                    <input type="checkbox" name="modo_prueba">
+                    Activar modo de prueba
+                </label>
+
+                <button type="submit">
+                    Procesar gesto
+                </button>
+
+            </form>
+
+        </section>
+
+        <section class="card">
+
+            <h2>Registrar dispositivo</h2>
+
+            <form method="POST"
+                  action="{{ url_for('web.registrar_dispositivo') }}">
+
+                <label for="nombre">Nombre:</label>
+
+                <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    placeholder="Interruptor 1"
+                    required
+                >
+
+                <label for="zona">Zona:</label>
+
+                <input
+                    type="text"
+                    id="zona"
+                    name="zona"
+                    placeholder="Sala"
+                    required
+                >
+
+                <button type="submit">
+                    Registrar dispositivo
+                </button>
+
+            </form>
+
+            <h3>Dispositivos registrados</h3>
+
+            {% if dispositivos %}
+
+                <ul>
+                    {% for dispositivo in dispositivos %}
+                        <li>
+                            {{ dispositivo["nombre"] }}
+                            - {{ dispositivo["zona"] }}
+                            - {{ dispositivo["estado"] }}
+                        </li>
+                    {% endfor %}
+                </ul>
+
+            {% else %}
+
+                <p>No hay dispositivos registrados.</p>
+
+            {% endif %}
+
+        </section>
+
+        <section class="card">
+
+            <h2>Historial de interacciones</h2>
+
+            {% if historial %}
+
+                <div class="tabla-contenedor">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Gesto</th>
+                                <th>Resultado</th>
+                                <th>Motivo</th>
+                                <th>Acción</th>
+                                <th>Modo prueba</th>
+                                <th>Estado luz</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% for evento in historial %}
+
+                            <tr>
+
+                                <td>{{ evento["fecha"] }}</td>
+
+                                <td>{{ evento["gesto"] }}</td>
+
+                                <td>
+                                    {% if evento["aceptado"] %}
+                                        Aceptado
+                                    {% else %}
+                                        Rechazado
+                                    {% endif %}
+                                </td>
+
+                                <td>{{ evento["motivo"] }}</td>
+
+                                <td>
+                                    {{ evento["accion"] or "Ninguna" }}
+                                </td>
+
+                                <td>
+                                    {% if evento["modo_prueba"] %}
+                                        Sí
+                                    {% else %}
+                                        No
+                                    {% endif %}
+                                </td>
+
+                                <td>{{ evento["estado_luz"] }}</td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <p>Todavía no existen eventos registrados.</p>
+
+            {% endif %}
+
+        </section>
+
+    </main>
+
+    <footer>
+        <p>Proyecto de Ingeniería en Software</p>
+        <p>Interruptores inteligentes sin contacto</p>
+    </footer>
+
+</body>
+</html>
