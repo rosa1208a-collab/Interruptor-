@@ -1,0 +1,160 @@
+/* Estilos generales */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f3f4f6;
+    color: #1f2937;
+}
+
+/* Encabezado */
+
+header {
+    background-color: #4338ca;
+    color: white;
+    text-align: center;
+    padding: 30px 15px;
+}
+
+header h1 {
+    margin-bottom: 10px;
+}
+
+/* Contenido principal */
+
+main {
+    width: 90%;
+    max-width: 1100px;
+    margin: 25px auto;
+}
+
+/* Tarjetas */
+
+.card {
+    background-color: white;
+    padding: 25px;
+    margin-bottom: 25px;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+h2 {
+    color: #4338ca;
+}
+
+/* Estado de iluminación */
+
+.estado {
+    font-size: 28px;
+    font-weight: bold;
+    color: #059669;
+}
+
+/* Formularios */
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input,
+select,
+button {
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #d1d5db;
+    font-size: 15px;
+}
+
+input:focus,
+select:focus {
+    outline: 2px solid #818cf8;
+}
+
+/* Modo de prueba */
+
+.check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.check input {
+    width: auto;
+}
+
+/* Botones */
+
+button {
+    background-color: #4338ca;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    background-color: #3730a3;
+}
+
+/* Historial */
+
+.tabla-contenedor {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th,
+td {
+    padding: 12px;
+    border: 1px solid #e5e7eb;
+    text-align: left;
+}
+
+th {
+    background-color: #e0e7ff;
+}
+
+/* Pie de página */
+
+footer {
+    text-align: center;
+    padding: 20px;
+    color: #6b7280;
+}
+
+/* Diseño adaptable */
+
+@media (max-width: 600px) {
+
+    main {
+        width: 95%;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    header h1 {
+        font-size: 24px;
+    }
+
+    .estado {
+        font-size: 24px;
+    }
+}
